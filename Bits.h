@@ -59,7 +59,7 @@ typedef unsigned short int uint16_t;
 /*! This data type is 16-bit signed integer*/
 typedef short int sint16_t;
 /*! This data type is 32-bit unsigned integer*/
-typedef unsigned long int uint32_t;
+typedef unsigned long int uint32;
 /*! This data type is 16-bit signed integer*/
 typedef long int sint32_t;
 /*! This data type is 32-bit signed float*/
