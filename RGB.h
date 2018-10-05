@@ -27,13 +27,7 @@
 #define SW2_PORT GPIO_C
 #define SW2_PIN bit_6
 
-#define COLOR_LIMIT (0x03u)
-
-typedef enum {BLUE, RED, GREEN} Colors_t;
-
 void RGB_init(void);
-
-Colors_t RGB_color_selector(void);
 
 void RGB_red_led_on_off(uint8_t on_off);
 void RGB_blue_led_on_off(uint8_t on_off);
