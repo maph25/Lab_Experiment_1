@@ -69,22 +69,36 @@ void Mode1_set_value(void){
 
 void Mode2_set_value(void){
 	DATA_AVA = PIT_get_flag();
-	pit_delay(PIT_0,system_clock,delay);
-	switch(DATA_AVA)
-		{
-		case seg4_on:
-		break;
 
-		case seg4_off:
-		break;
+switch(DATA_AVA)
+		{
+	case SEG_4_ON:
+		if(DATA_AVA == TRUE)
+		{
+			GPIO_set_pin(PORT_B, BIT_9);
+			g_state = SEG_4_OFF;
+			GPIO_clear_interrupt(PORT_B, BIT_9);
+		}
+	break;
+
+	case SEG_4_OFF:
+		if(DATA_AVA == TRUE)
+		{
+			GPIO_clear_interrupt(PORT_B, BIT_9);
+			g_state = SEG_4_ON;
+		}
+	break;
+
+	default:
+
+	break;
 
 
 }
 
 void Mode3_set_value(void){
 	DATA_AVA = PIT_get_flag();
-	pit_delay(PIT_0,system_clock,delay);
-
+	GPIO_clear_interrupt(PORT_B, BIT_9); //SE MANTIENE APAGADO EL PUERTO
 	//off
 
 }
