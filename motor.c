@@ -30,20 +30,26 @@ void Mode1_set_value(void){
 		if(DATA_AVA == TRUE)
 		{
 		GPIO_set_pin(PORT_B, BIT_9);
-		g_state = SEG_1_ON;
-		//clear
+		g_state = SEG_1_OFF;
+		GPIO_clear_interrupt(PORT_B, BIT_9);
 
 		}
 	break;
 
 	case SEG_1_OFF:
-
+		GPIO_clear_interrupt(PORT_B, BIT_9); //SE MANTIENE APAGADO EL PUERTO
+		g_state = SEG_3_ON;
 	break;
 
 	case SEG_3_ON:
+		GPIO_set_pin(PORT_B, BIT_9);
+		g_state = SEG_1_OFF_2;
+		GPIO_clear_interrupt(PORT_B, BIT_9);
 	break;
 
 	case SEG_1_OFF_2:
+		GPIO_clear_interrupt(PORT_B, BIT_9); //SE MANTIENE APAGADO EL PUERTO
+		g_state = SEG_1_ON; //REGRESA AL INICIO DEL CICLO /O VOLVER AL CASO DEFAULT?
 	break;
 
 
