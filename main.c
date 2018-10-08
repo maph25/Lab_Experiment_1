@@ -53,9 +53,9 @@ int main(void) {
 	GPIO_data_direction_pin(GPIO_A, GPIO_OUTPUT, bit_2);
 	/*External LEDs for Motor*/
 	GPIO_data_direction_pin(GPIO_D, GPIO_OUTPUT, bit_3);
-	GPIO_data_direction_pin(GPIO_D, GPIO_OUTPUT, bit_1);//PREGUNTAR A ANDY
+	GPIO_data_direction_pin(GPIO_D, GPIO_OUTPUT, bit_1);
 	/*Motor*/
-	GPIO_clearPIN(GPIO_B, BIT9); 
+	GPIO_data_direction_pin(GPIO_B, GPIO_OUTPUT,bit_9);
 
 
 

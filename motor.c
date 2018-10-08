@@ -13,36 +13,7 @@
 #include "RGB.h"
 #include "GPIO.h"
 
-#define state 0
-#define DATA_AVA 0
-#define Delay 100000
-#define Delay2 300000
-#define Delay3 400000
-
-/*PARA LOS CASO DEL MODO 1*/
-#define SEG_1_ON 0
-#define SEG_1_OFF 1
-#define SEG_3_ON 2
-#define SEG_1_OFF_2 3
-
-/*PARA LOS CASO DEL MODO 2*/
-#define SEG_4_ON 0
-#define SEG_4_OFF 1
-
-/*PARA LOS CASO DE MOTOR*/
-#define MODE1 0
-#define MODE2 1
-#define MODE3 2
-
-
-
-
-
-
-
 uint8_t g_state = SET_DELAY;
-
-
 
 
 void Mode1_set_value(void){
@@ -52,7 +23,7 @@ void Mode1_set_value(void){
 	switch(state)
 	{
 	case SET_DELAY:
-		pit_delay(PIT_0,system_clock,Delay);//determina duración de 1 segundo para la interrupcion
+		PIT_delay(PIT_0,SystemClock,Delay);//determina duración de 1 segundo para la interrupcion
 		g_state = SEG_1_ON;
 		break;
 	case SEG_1_ON:
@@ -74,7 +45,7 @@ void Mode1_set_value(void){
 	case SEG_3_ON:
 		if(DATA_AVA == TRUE)
 		{
-		pit_delay(PIT_0,system_clock,Delay2);//cambia el tiempo de la interrupción a 3 segundos
+		PIT_delay(PIT_0,SystemClock,Delay2);//cambia el tiempo de la interrupción a 3 segundos
 		GPIO_set_pin(GPIO_B, bit_9);
 		g_state = SEG_1_OFF_2;
 
@@ -84,7 +55,7 @@ void Mode1_set_value(void){
 	case SEG_1_OFF_2:
 		if(DATA_AVA == TRUE)
 		{
-		pit_delay(PIT_0,system_clock,Delay); //REGRESA AL DELAY DE 1 SEGUNDO
+		PIT_delay(PIT_0,SystemClock,Delay); //REGRESA AL DELAY DE 1 SEGUNDO
 		GPIO_clear_pin(GPIO_B, bit_9); //SE MANTIENE APAGADO EL PUERTO
 		g_state = SEG_1_ON; //REGRESA AL INICIO DEL CICLO /O VOLVER AL CASO DEFAULT?
 		}
@@ -103,7 +74,7 @@ switch(DATA_AVA)
 		{
 
 	 case SET_DELAY:
-		pit_delay(PIT_0,system_clock,Delay3); //DELAY DE 4 SEGUNDOS
+		PIT_delay(PIT_0,SystemClock, Delay3); //DELAY DE 4 SEGUNDOS
 		g_state = SEG_4_ON;
 		break;
 	case SEG_4_ON:
@@ -118,7 +89,7 @@ switch(DATA_AVA)
 	case SEG_4_OFF:
 		if(DATA_AVA == TRUE)
 		{
-			GPIO_clear_interrupt(GPIO_B, bit_9);
+			GPIO_clear_interrupt(GPIO_B);
 			g_state = SEG_4_ON;
 		}
 	break;
@@ -149,8 +120,8 @@ void motor(){
 				{
 					state = MODE2;
 					g_state = SET_DELAY;
-					GPIO_toogle_pin(GPIO_D, BIT1);
-					GPIO_clear_pin(GPIO_D, BIT3);
+					GPIO_toogle_pin(GPIO_D, bit_1);
+					GPIO_clear_pin(GPIO_D, bit_3);
 
 				}
 
@@ -161,14 +132,14 @@ void motor(){
 				{
 					state = MODE3;
 					g_state = SET_DELAY;
-					GPIO_toogle_pin(GPIO_D, BIT3);
-					GPIO_clear_pin(GPIO_D, BIT1);
+					GPIO_toogle_pin(GPIO_D, bit_3);
+					GPIO_clear_pin(GPIO_D, bit_1);
 
 				}
 				break;
 
 			case MODE3:
-				GPIO_clear_interrupt(GPIO_B,bit_9);
+				GPIO_clear_interrupt(GPIO_B);
 				if(DATA_AVAILABLE == TRUE)
 				{
 					state = MODE1;
@@ -178,4 +149,5 @@ void motor(){
 			default:
 				break;
 		}
+	}
 }
