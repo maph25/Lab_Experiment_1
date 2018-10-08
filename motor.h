@@ -13,12 +13,12 @@
 #include "Bits.h"
 #include "Delay.h"
 
-#define state 0
-#define DATA_AVA 0
+
 #define Delay 100000
 #define Delay2 300000
 #define Delay3 400000
 #define SystemClock 21000000
+#define SET_DELAY 4
 
 /*PARA LOS CASO DEL MODO 1*/
 #define SEG_1_ON 0
