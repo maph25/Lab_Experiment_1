@@ -14,10 +14,12 @@
 #include "GPIO.h"
 
 uint8_t g_state = SET_DELAY;
+uint8_t DATA_AVA;
+static uint8_t state;
 
 
 void Mode1_set_value(void){
-	DATA_AVA = PIT_get_flag(); //recibe la señal de la interrupción
+	DATA_AVA = PIT_get_interrupt_glag_status(); //recibe la señal de la interrupción
 
 
 	switch(state)
@@ -68,7 +70,7 @@ void Mode1_set_value(void){
 }
 
 void Mode2_set_value(void){
-	DATA_AVA = PIT_get_flag();
+	DATA_AVA = PIT_get_interrupt_glag_status();
 
 switch(DATA_AVA)
 		{
