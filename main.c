@@ -51,6 +51,11 @@ int main(void) {
 	/*External LEDs for Keyboard*/
 	GPIO_data_direction_pin(GPIO_A, GPIO_OUTPUT, bit_1);
 	GPIO_data_direction_pin(GPIO_A, GPIO_OUTPUT, bit_2);
+	/*External LEDs for Motor*/
+	GPIO_data_direction_pin(GPIO_D, GPIO_OUTPUT, bit_3);
+	GPIO_data_direction_pin(GPIO_D, GPIO_OUTPUT, bit_1);//PREGUNTAR A ANDY
+	/*Motor*/
+	GPIO_clearPIN(GPIO_B, BIT9); 
 
 
 
