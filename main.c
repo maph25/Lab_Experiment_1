@@ -42,6 +42,16 @@ int main(void) {
 	GPIO_pin_control_register(GPIO_C, bit_5, &key_config);
 	GPIO_pin_control_register(GPIO_C, bit_7, &key_config);
 	GPIO_pin_control_register(GPIO_C, bit_9, &key_config);
+	/*Keyboard and push button set as input*/
+	GPIO_data_direction_pin(GPIO_C, GPIO_INPUT, bit_6);
+	GPIO_data_direction_pin(GPIO_C, GPIO_INPUT, bit_0);
+	GPIO_data_direction_pin(GPIO_C, GPIO_INPUT, bit_5);
+	GPIO_data_direction_pin(GPIO_C, GPIO_INPUT, bit_7);
+	GPIO_data_direction_pin(GPIO_C, GPIO_INPUT, bit_9);
+	/*External LEDs for Keyboard*/
+	GPIO_data_direction_pin(GPIO_A, GPIO_OUTPUT, bit_1);
+	GPIO_data_direction_pin(GPIO_A, GPIO_OUTPUT, bit_2);
+
 
 
     while(1) {
