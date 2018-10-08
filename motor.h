@@ -1,8 +1,8 @@
 /*
- * Motor.h
+ * motor.h
  *
- *  Created on: 26/09/2018
- *      Author: Fer Muñoz
+ *  Created on: Oct 8, 2018
+ *      Author: Fernanda Muñoz ie701371@iteso.mx
  */
 
 #ifndef MOTOR_H_

@@ -1,6 +1,11 @@
+/*
+ * motor.c
+ *
+ *  Created on: Oct 5, 2018
+ *      Author: Fernanda Muñoz ie701371@iteso.mx
+ */
 
-
-#include "Motor.h"
+#include "motor.h"
 #include "stdint.h"
 #include "Delay.h"
 #include "Bits.h"
@@ -129,14 +134,13 @@ switch(DATA_AVA)
 	DATA_AVA = PIT_get_flag();
 	GPIO_clear_interrupt(GPIO_B, BIT_9); //SE MANTIENE APAGADO EL PUERTO
 	//off
-
 }*/
 
 
 
 void motor(){
 
-	uint8 DATA_AVAILABLE = GPIO_get_flag();
+	uint8_t DATA_AVAILABLE = GPIO_get_flag();
 
 		switch (state) {
 			case MODE1:
@@ -175,7 +179,3 @@ void motor(){
 				break;
 		}
 }
-
-
-
-

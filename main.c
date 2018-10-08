@@ -26,6 +26,23 @@ uint8_t DataAvailable;
 #define DGT_PASS 5u
 
 int main(void) {
+	/*Initialization*/
+	/*GPIO_A*/
+	GPIO_clock_gating(GPIO_A);
+	/*GPIO_B*/
+	GPIO_clock_gating(GPIO_B);
+	/*GPIO_C*/
+	GPIO_clock_gating(GPIO_C);
+	/*GPIO_D*/
+	GPIO_clock_gating(GPIO_D);
+	/*Falling Edge, push button and keyboard*/
+	gpio_pin_control_register_t key_config = GPIO_MUX1 | GPIO_PE | GPIO_PS | INTR_FALLING_EDGE;
+	GPIO_pin_control_register(GPIO_C, bit_6, &key_config);
+	GPIO_pin_control_register(GPIO_C, bit_0, &key_config);
+	GPIO_pin_control_register(GPIO_C, bit_5, &key_config);
+	GPIO_pin_control_register(GPIO_C, bit_7, &key_config);
+	GPIO_pin_control_register(GPIO_C, bit_9, &key_config);
+
 
     while(1) {
     	for(state = 0; state > DGT_FOUR; state ++){
