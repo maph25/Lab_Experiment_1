@@ -54,9 +54,13 @@ int main(void) {
 	/*External LEDs for Motor*/
 	GPIO_data_direction_pin(GPIO_D, GPIO_OUTPUT, bit_3);
 	GPIO_data_direction_pin(GPIO_D, GPIO_OUTPUT, bit_1);
+	/*External LEDs for signal*/
+	GPIO_data_direction_pin(GPIO_A, GPIO_OUTPUT, bit_3);
+	GPIO_data_direction_pin(GPIO_A, GPIO_OUTPUT, bit_1);
 	/*Motor*/
 	GPIO_data_direction_pin(GPIO_B, GPIO_OUTPUT,bit_9);
-
+	/*SIGNAL*/
+	GPIO_data_direction_pin(GPIO_B, GPIO_OUTPUT,bit_9);
 
 
     while(1) {
@@ -119,7 +123,8 @@ int main(void) {
     					}
     					else if(password[0] == KEY_FOUR && password[1] == KEY_FIVE && password[2] == KEY_SIX && password[3] == KEY_SEVEN){
     							GPIO_toogle_pin(GPIO_A, bit_2); /**Turn on correct password led*/
-    					}
+    							motor();
+					}
     					else if(password[0] == KEY_SEVEN && password[1] == KEY_EIGHT && password[2] == KEY_NINE && password[3] == KEY_ZERO){
     							GPIO_toogle_pin(GPIO_A, bit_2); /**Turn on correct password led*/
     					}
