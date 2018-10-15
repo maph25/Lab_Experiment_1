@@ -2,7 +2,8 @@
 #include "PIT.h"
 #include "Bits.h"
 
-static uint8_t g_pit_intr_flag = FALSE;
+static uint8_t g_pit_intr_flag0 = FALSE;
+static uint8_t g_pit_intr_flag1 = FALSE;
 
 
 void PIT0_IRQHandler()
@@ -15,10 +16,21 @@ void PIT0_IRQHandler()
 	PIT->CHANNEL[0].TCTRL &= ~(PIT_TCTRL_TIE_MASK);//enables PIT timer interrupt
 	PIT->CHANNEL[0].TCTRL &= ~(PIT_TCTRL_TEN_MASK);//enables timer0
 
-	g_pit_intr_flag = TRUE;
+	g_pit_intr_flag0 = TRUE;
 }
 
+void PIT1_IRQHandler()
+{
+	volatile uint32_t dummyRead;
 
+	PIT->CHANNEL[1].TFLG |= PIT_TFLG_TIF_MASK;
+	dummyRead = PIT->CHANNEL[1].TCTRL;	//read control register for clear PIT flag, this is silicon bug
+
+	PIT->CHANNEL[1].TCTRL &= ~(PIT_TCTRL_TIE_MASK);//enables PIT timer interrupt
+	PIT->CHANNEL[1].TCTRL &= ~(PIT_TCTRL_TEN_MASK);//enables timer0
+
+	g_pit_intr_flag1 = TRUE;
+}
 void PIT_delay(PIT_timer_t pit_timer,My_float_pit_t system_clock , My_float_pit_t delay)
 {
 	uint32_t LDVAL = 0;
@@ -65,13 +77,20 @@ void PIT_clock_gating(void)
 	SIM->SCGC6 |= SIM_SCGC6_PIT_MASK;
 }
 
-uint8_t PIT_get_interrupt_glag_status(void)
+uint8_t PIT0_get_interrupt_glag_status(void)
 {
-	return(g_pit_intr_flag);
+	return(g_pit_intr_flag0);
+}
+uint8_t PIT1_get_interrupt_glag_status(void)
+{
+	return(g_pit_intr_flag1);
 }
 
-void PIT_clear_interrupt_flag(void)
+void PIT0_clear_interrupt_flag(void)
 {
-	g_pit_intr_flag = FALSE;
+	g_pit_intr_flag0 = FALSE;
 }
-
+void PIT1_clear_interrupt_flag(void)
+{
+	g_pit_intr_flag1 = FALSE;
+}
