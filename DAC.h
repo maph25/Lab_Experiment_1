@@ -2,38 +2,28 @@
  * DAC.h
  *
  *  Created on: Sep 24, 2018
- *      Author: Andrea Perez, Sandra Fernanda
+ *      Author: LuisFernando
  */
 
 #ifndef DAC_H_
 #define DAC_H_
 
+#include "MK64F12.h"
 #include "GPIO.h"
-#include "PIT.h"
 #include "Bits.h"
+#include "PIT.h"
 #include "Delay.h"
-#include "RGB.h"
 
-/**/
-#define SET_PIT 4
-/**/
-#define SQ_ON 0
-#define SINE_ON 1
-#define TRI_ON 2
-/**/
-#define SQ 0
-#define SINE 1
-#define TRI 2
+void DAC_set_value_sine(void);
 
 void DAC_clock_gating(void);
 
-void sine_led();
-void square_led();
-void triangular_led();
+void DAC_enable(BooleanType enable);
 
-void Square_gen();
-void Sine_gen();
-void Triangular_gen();
+void DAC_set_value_sine(void);
 
-void wave_gen();
+void DAC_set_value_tri(void);
+
+void DAC_set_value_square(void);
+
 #endif /* DAC_H_ */
