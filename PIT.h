@@ -51,8 +51,16 @@ void PIT_clock_gating(void);
  	 \param[in]  void.
  	 \return uint8_t flag status
  */
-uint8_t PIT_get_interrupt_glag_status(void);
+uint8_t PIT0_get_interrupt_glag_status(void);
+/********************************************************************************************/
+/*!
+ 	 \brief	It return the status of the interrupt flag. This flag is a variable created by the programmer.
+ 	 It is not the flag related with bit TIF in PIT->CHANNEL[0].TFLG |= PIT_TFLG_TIF_MASK;
 
+ 	 \param[in]  void.
+ 	 \return uint8_t flag status
+ */
+uint8_t PIT1_get_interrupt_glag_status(void);
 /********************************************************************************************/
 /*!
  	 \brief	It return clears the interrupt flag. This flag is a variable created by the programmer.
@@ -61,8 +69,16 @@ uint8_t PIT_get_interrupt_glag_status(void);
  	 \param[in]  void.
  	 \return uint8_t flag status
  */
-void PIT_clear_interrupt_flag(void);
+void PIT0_clear_interrupt_flag(void);
+/********************************************************************************************/
+/*!
+ 	 \brief	It return clears the interrupt flag. This flag is a variable created by the programmer.
+ 	 It is not the flag related with bit TIF in PIT->CHANNEL[0].TFLG |= PIT_TFLG_TIF_MASK;
 
+ 	 \param[in]  void.
+ 	 \return uint8_t flag status
+ */
+void PIT1_clear_interrupt_flag(void);
 /********************************************************************************************/
 /*!
  	 \brief	It return clears the interrupt flag. This flag is a variable created by the programmer.
