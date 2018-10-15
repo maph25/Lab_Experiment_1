@@ -11,13 +11,20 @@
 #include "MK64F12.h"
 #include "GPIO.h"
 
-static uint8_t FlagPortC;
+static uint8_t FlagPortC,FlagPortA;
 static uint8_t SW_2;
 
-uint8_t GPIO_get_flag(){
+uint8_t GPIO_get_flagA(){
+	return FlagPortA = FALSE;
+}
+uint8_t GPIO_get_flagC(){
 	return FlagPortC = FALSE;
 }
 
+void PORTA_IRQHandler(){
+			FlagPortA = TRUE;
+			GPIO_clear_interrupt(GPIO_A);
+}
 void PORTC_IRQHandler(){
 		uint32_t port_value;
 		port_value = GPIOC->PDIR;
@@ -32,6 +39,65 @@ void PORTC_IRQHandler(){
 			GPIO_clear_interrupt(GPIO_C);
 		}
 }
+/*Parte agregada para el DAC a la hardcoreada*/
+static GPIO_interruptFlags_t GPIO_intrStatusFlag;
+void SW3_INT()
+{
+	GPIO_intrStatusFlag.flagPortA  = TRUE;
+	GPIO_clear_interrupt(GPIO_A);
+
+}
+uint8_t GPIO_get_IRQ_status(gpio_port_name_t gpio)
+{
+	switch (gpio) {
+		case GPIO_A:
+			return(GPIO_intrStatusFlag.flagPortA);
+			break;
+		case GPIO_B:
+			return(GPIO_intrStatusFlag.flagPortB);
+			break;
+		case GPIO_C:
+			return(GPIO_intrStatusFlag.flagPortC);
+			break;
+		case GPIO_D:
+			return(GPIO_intrStatusFlag.flagPortD);
+			break;
+		case GPIO_E:
+			return(GPIO_intrStatusFlag.flagPortE);
+			break;
+		default:
+			return(ERROR_DAC);
+			break;
+	}
+
+}
+uint8_t GPIO_clear_IRQ_status(gpio_port_name_t gpio)
+{
+	switch (gpio) {
+		case GPIO_A:
+			GPIO_intrStatusFlag.flagPortA = FALSE;
+			break;
+		case GPIO_B:
+			GPIO_intrStatusFlag.flagPortB = FALSE;
+			break;
+		case GPIO_C:
+			GPIO_intrStatusFlag.flagPortC = FALSE;
+			break;
+		case GPIO_D:
+			GPIO_intrStatusFlag.flagPortD = FALSE;
+			break;
+		case GPIO_E:
+			GPIO_intrStatusFlag.flagPortE = FALSE;
+			break;
+		default:
+			return(ERROR_DAC);
+			break;
+	}
+
+	return(TRUE);
+
+}
+/*************************************************************/
 
 void GPIO_clear_interrupt(gpio_port_name_t portName)
 {
