@@ -6,11 +6,14 @@
  */
 #include "SMSG.h"
 #include "stdint.h"
+#include "Delay.h"
 #include "NVIC.h"
 
 #define SQUARE 0
 #define SINE 1
 #define TRI 2
+
+
 
 uint8_t FlagPortA = FALSE;
 
@@ -40,10 +43,11 @@ void DAC_SM_moore(void)
 	/**/
 	static uint8_t currentState = SQUARE;
 	FSM_Moore[currentState].fptrSignal();
-	if(TRUE == GPIO_get_flagA(GPIO_A))
+	if(TRUE == GPIO_get_IRQ_status(GPIO_A))
 	{
 		if(!statePortA)
 		{
+
 			currentState = FSM_Moore[currentState].next[counter];
 			counter++;
 			if(counter>3)
@@ -54,6 +58,6 @@ void DAC_SM_moore(void)
 			currentState = FSM_Moore[currentState].next[counter];
 		}
 		statePortA = !statePortA;
-		GPIO_clear_interrupt(GPIO_A);
+		GPIO_clear_IRQ_status(GPIO_A);
 	}
 }
