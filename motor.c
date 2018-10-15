@@ -19,7 +19,7 @@ static uint8_t state;
 
 
 void Mode1_set_value(void){
-	DATA_AVA = PIT_get_interrupt_glag_status(); //recibe la señal de la interrupción
+	DATA_AVA = PIT0_get_interrupt_glag_status(); //recibe la señal de la interrupción
 
 
 	switch(state)
@@ -66,11 +66,11 @@ void Mode1_set_value(void){
 	default:
 	break;
 	}
-	PIT_clear_interrupt_flag(); //LIMPIA LA BANDERA PARA LA INTERRUPCIÓN
+	PIT0_clear_interrupt_flag(); //LIMPIA LA BANDERA PARA LA INTERRUPCIÓN
 }
 
 void Mode2_set_value(void){
-	DATA_AVA = PIT_get_interrupt_glag_status();
+	DATA_AVA = PIT0_get_interrupt_glag_status();
 
 switch(DATA_AVA)
 		{
@@ -113,7 +113,7 @@ switch(DATA_AVA)
 
 void motor(){
 
-	uint8_t DATA_AVAILABLE = GPIO_get_flag();
+	uint8_t DATA_AVAILABLE = GPIO_get_flagC();
 
 		switch (state) {
 			case MODE1:
